@@ -79,16 +79,6 @@ class Zarinpal {
       email,
     }
 
-    const options = {
-      method: 'POST',
-      url,
-      headers: {
-        "accept": "application/json",
-        "content-type": "application/json",
-      },
-      data: JSON.stringify(data),
-    };
-
     return this.#send(url, data);
   }
 
@@ -170,16 +160,6 @@ class Zarinpal {
       authority,
     }
 
-    const options = {
-      method: 'POST',
-      url,
-      headers: {
-        "accept": "application/json",
-        "content-type": "application/json",
-      },
-      data,
-    };
-
     return this.#send(url, data);
   }
 
@@ -210,16 +190,6 @@ class Zarinpal {
       merchant_id: this.merchantID,
     }
 
-    const options = {
-      method: 'POST',
-      url,
-      headers: {
-        "accept": "application/json",
-        "content-type": "application/json",
-      },
-      data,
-    };
-
     return this.#send(url, data);
   }
 
@@ -242,16 +212,6 @@ class Zarinpal {
       merchant_id: this.merchantID,
       authority,
     }
-
-    const options = {
-      method: 'POST',
-      url,
-      headers: {
-        "accept": "application/json",
-        "content-type": "application/json",
-      },
-      data,
-    };
 
     return this.#send(url, data);
   }
