@@ -1,7 +1,7 @@
 const Zarinpal = require("./Zarinpal.js")
 
 async function main() {
-  const zarinpal = new Zarinpal("1344b5d4-0048-11e8-94db-005056a205be", false)
+  const zarinpal = new Zarinpal("1344b5d4-0048-11e8-94db-005056a205be")
 
   try {
 
