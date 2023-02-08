@@ -1,4 +1,3 @@
-const axios = require('axios');
 const crypto = require("crypto");
 const { Headers, default: fetch } = require("node-fetch")
 
@@ -12,13 +11,17 @@ const {
 } = require("./utils")
 
 class Zarinpal {
-  constructor(merchantID, sandbox = true) {
+  constructor(merchantID, sandbox = false) {
     if (!isTypeString(merchantID)) {
       throw new Error(":: ARGUMENT ERROR merchantID should be of type string")
     }
 
     if (merchantID.length !== 36) {
       throw new Error(":: ARGUMENT ERROR merchantID should be 36 characters long")
+    }
+
+    if (!!sandbox) {
+      throw new Error(":: Zarinpal has disabled the sandbox mode you cannot use that until they enable it gain")
     }
 
     this.sandbox = !!sandbox
@@ -178,7 +181,6 @@ class Zarinpal {
     };
 
     return this.#send(url, data);
-    // return axios(options);
   }
 
   wasVerifySuccessfull(verifyResponse) {
@@ -219,7 +221,6 @@ class Zarinpal {
     };
 
     return this.#send(url, data);
-    // return axios(options);
   }
 
   /**
@@ -253,7 +254,6 @@ class Zarinpal {
     };
 
     return this.#send(url, data);
-    // return axios(options);
   }
 }
 
