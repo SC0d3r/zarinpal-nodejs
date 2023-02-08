@@ -3,14 +3,14 @@ Read more about how zarinpal API at https://www.zarinpal.com/docs/md/howToUse/
 
 #### How to download
 ```sh
-npm i node-zarinpal
+npm i zarinpal-nodejs
 ```
 
 #### How to use
 ```js
 
 async function transaction(){
-  const Zarinpal = require("node-zarinpal")
+  const Zarinpal = require("zarinpal-nodejs")
 
   const merchantID = "XXXX-XX-XXXX-XXXXX-XXXX"
   const zarinpal = new Zarinpal(merchantID)
