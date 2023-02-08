@@ -17,5 +17,14 @@
   "license": "MIT",
   "dependencies": {
     "node-fetch": "^2.6.9"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SC0d3r/zarinpal-nodejs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SC0d3r/zarinpal-nodejs/issues"
+  },
+  "homepage": "https://github.com/SC0d3r/zarinpal-nodejs#readme"
 }
