@@ -1,8 +1,8 @@
-export function isTypeNumber(x) {
+function isTypeNumber(x) {
   return typeof x === "number" && !isNaN(x) && Number.isInteger(x)
 }
 
-export function isTypeString(x) {
+function isTypeString(x) {
   return typeof x === "string"
 }
 
@@ -14,7 +14,7 @@ function isNotValid(...reasons) {
   return { status: false, reason: reasons.join(", ") }
 }
 
-export function checkAuthority(authority) {
+function checkAuthority(authority) {
   if (!isTypeString(authority)) {
     return isNotValid("authority is not valid it should be a valid string", authority)
   }
@@ -24,7 +24,7 @@ export function checkAuthority(authority) {
   return isValid()
 }
 
-export function checkAmount(amount) {
+function checkAmount(amount) {
   if (!isTypeNumber(amount)) {
     return isNotValid("Amount is not valid, it should be a valid number like 1000")
   }
@@ -36,7 +36,7 @@ export function checkAmount(amount) {
   return isValid()
 }
 
-export function checkDescription(desc) {
+function checkDescription(desc) {
   if (!isTypeString(desc)) {
     return isNotValid("description is not valid it should be of type string")
   }
@@ -48,7 +48,7 @@ export function checkDescription(desc) {
   return isValid()
 }
 
-export function checkCallbackURL(callbackURL) {
+function checkCallbackURL(callbackURL) {
   if (!isTypeString(callbackURL)) {
     return isNotValid("callback url is not valid it should be of type string", callbackURL)
   }
@@ -57,11 +57,20 @@ export function checkCallbackURL(callbackURL) {
     return isNotValid("callback url is not valid it cannot be an empty string", callbackURL)
   }
 
-  const urlRegex = /^((https?):\/\/)?([w|W]{3}\.)+[a-zA-Z0-9\-\.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/
+  const urlRegex = /^https?:\/\/(?:w{1,3}\.)?[^\s.]+(?:\.[a-z]+)*(?::\d+)?(?![^<]*(?:<\/\w+>|\/?>))$/
 
   if (!urlRegex.test(callbackURL)) {
     return isNotValid("callback url is not valid it should be a valid url", callbackURL)
   }
 
   return isValid()
+}
+
+module.exports = {
+  checkCallbackURL,
+  checkDescription,
+  checkAmount,
+  checkAuthority,
+  isTypeString,
+  isTypeNumber,
 }
