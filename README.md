@@ -1,5 +1,5 @@
 ## Zarinpal payement and gateway API
-Read more about how zarinpal API at https://www.zarinpal.com/docs/md/howToUse/
+Read more about Zarinpal API at https://www.zarinpal.com/docs/md/howToUse/
 
 #### How to download
 ```sh
