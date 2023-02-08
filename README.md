@@ -22,7 +22,7 @@ async function transaction(){
     description: "a simple test",
   })
 
-  // if creating payement transaction was no successfull the redirect url
+  // if creating payement transaction was not successfull the redirect url
   // will be an empty string
   const redirectURL = zarinpal.getRedirectURL(paymentResponse)
 }
@@ -75,6 +75,10 @@ const verificationResponse = await zarinpal.verifyPayment({
 - To check if verify was successfull
 ```js 
 const ok = zarinpal.wasVerifySuccessfull(verificationResponse)
+
+if(ok){
+  // everyting is fine and verified
+}
 ```
 
 - For getting masked card number
