@@ -15,16 +15,23 @@ async function transaction(){
   const merchantID = "XXXX-XX-XXXX-XXXXX-XXXX"
   const zarinpal = new Zarinpal(merchantID)
 
-  // currency by default is Toman
-  const paymentResponse = await zarinpal.paymentRequest({
-    amount: 1000,
-    callback_url: "http://localhost:3000/api/payment",
-    description: "a simple test",
-  })
+  try{
+    // currency by default is Toman
+    const paymentResponse = await zarinpal.paymentRequest({
+      amount: 1000,
+      callback_url: "http://localhost:3000/api/payment",
+      description: "a simple test",
+    })
 
-  // if creating payement transaction was not successfull the redirect url
-  // will be an empty string
-  const redirectURL = zarinpal.getRedirectURL(paymentResponse)
+    // if creating payement transaction was not successfull the redirect url
+    // will be an empty string
+    const redirectURL = zarinpal.getRedirectURL(paymentResponse)
+
+    return redirectURL
+  }catch(e){
+    console.log("Error happend while trying to create a new transaction", e)
+    return ""
+  }
 }
 
 ```
