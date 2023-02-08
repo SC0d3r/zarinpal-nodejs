@@ -47,8 +47,6 @@ class Zarinpal {
       :
       "https://api.zarinpal.com/pg/v4/payment/request.json"
 
-    // const url = `https://sandbox.zarinpal.com/pg/rest/WebGate/PaymentRequest.json`
-
     const amountValidity = checkAmount(amount)
     if (!amountValidity.status) {
       throw new Error(amountValidity.reason)
