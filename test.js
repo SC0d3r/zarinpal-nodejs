@@ -10,8 +10,6 @@ async function main() {
       amount: 1000,
       callback_url: "http://localhost:3000/api/payment",
       description: "a simple test",
-      // email: "sasan.sck@gmail.com",
-      // mobile: "09050238391",
     })
 
     console.log("resp is", resp, resp.errors.validations)
