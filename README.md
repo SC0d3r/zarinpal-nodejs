@@ -9,7 +9,7 @@ npm i zarinpal-nodejs
 #### How to use
 ```js
 
-async function transaction(){
+async function createTransaction(){
   const Zarinpal = require("zarinpal-nodejs")
 
   const merchantID = "XXXX-XX-XXXX-XXXXX-XXXX"
