@@ -29,21 +29,21 @@ async function transaction(){
 
 ```
 
-##### Check to see if the payment was successfull
+#### Check to see if the payment was successfull
 ```js
 if(zarinpal.wasSuccessfull(paymentResponse)){
   // here payment was successfull
 }
 ```
 
-##### You can get the authority if the payment was successfull
+#### You can get the authority if the payment was successfull
 and save it in db for later use and checks
 > Note: if creating payement transaction was not successfull it will return undefined
 ```js
 const authority = zarinpal.getAuthority(paymentResponse)
 ```
 
-##### Now you redirect the user to this url 
+#### Now you redirect the user to this url 
 - After user payed then you zarinpal will redirect the user to the callback_url
 - In there you can find out the if the payment was successfull
 ```js
@@ -55,13 +55,13 @@ if(zarinpal.didUserPayedSuccessfully(query)){
 
 ```
 
-##### Get the authority 
+#### Get the authority 
 > Note: this will return `undefined` if user didnt pay successfull
 ```js
 const authority = zarinpal.getAuthorityAfterSuccessfullPayment(query)
 ```
 
-##### Make sure to verify 
+#### Make sure to verify 
 if the payment was successfull in your callbakc_url api
 otherwise after sometime the zarinpal will reject the amount back to the owner
 ```js
@@ -71,7 +71,7 @@ const verificationResponse = await zarinpal.verifyPayment({
 })
 ```
 
-##### Utils for checking verification response
+#### Utils for checking verification response
 - To check if verify was successfull
 ```js 
 const ok = zarinpal.wasVerifySuccessfull(verificationResponse)
@@ -93,12 +93,12 @@ const refID = zarinpal.getRefID(verificationResponse)
 const fee = zarinpal.getFee(verificationResponse)
 ```
 
-##### Get all the unverified paymenets
+#### Get all the unverified paymenets
 ```js
 const unverifiedRequests = await getAllUnverifiedRequests()
 ```
 
-##### Refund the amount to the owner
+#### Refund the amount to the owner
 > NOTE: for using refund you should first request an access token from zarinpal website
 ```js
 const refundResponse = await refund({
