@@ -1,4 +1,4 @@
-const Zarinpal = require("./Zarinpal.js")
+const Zarinpal = require("../Zarinpal.js")
 
 async function main() {
   const zarinpal = new Zarinpal("1344b5d4-0048-11e8-94db-005056a205be")
@@ -11,8 +11,11 @@ async function main() {
       description: "a simple test",
     })
 
-    console.log("resp is", resp, resp.errors.validations)
-    console.log("redirect url", zarinpal.getRedirectURL(resp))
+    if (zarinpal.wasSuccessfull(resp)) {
+      console.log("redirect url", zarinpal.getRedirectURL(resp))
+    } else {
+      console.log("Translated error to farsi", zarinpal.translateError(resp))
+    }
 
     // const allUnverifiedRequests = await zarinpal.getAllUnverifiedRequests()
     // console.log("get all unverfied requests", allUnverifiedRequests?.data?.authorities)

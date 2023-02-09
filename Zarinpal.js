@@ -1,5 +1,6 @@
 const crypto = require("crypto");
 const { Headers, default: fetch } = require("node-fetch")
+const ERRORS = require("./enums/ERRORS.json")
 
 const {
   checkAmount,
@@ -189,6 +190,20 @@ class Zarinpal {
     }
 
     return this.#send(url, data);
+  }
+
+
+  /**
+   * 
+   * translates error to farsi if its a predefined error
+   * for list of predefined error please check https://www.zarinpal.com/docs/md/paymentGateway/errorList.html
+   */
+  translateError(response) {
+    const errorCode = response?.errors?.code
+    if (!isTypeNumber(errorCode)) return ""
+
+    const maybeFarsiErrorMessage = ERRORS[errorCode.toString()]
+    return maybeFarsiErrorMessage ?? ""
   }
 
   /**

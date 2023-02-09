@@ -36,10 +36,27 @@ async function createTransaction(){
 
 ```
 
+#### Translate response error to Farsi
+> Note: if the error code couldnt not be found in the list of predefined errors it will return an empty string
+
+> For a list of predefined errors please check https://www.zarinpal.com/docs/md/paymentGateway/errorList.html
+```js
+const farsiError = zarinpal.translateError(paymentResponse)
+```
+
 #### Check to see if the payment was successfull
 ```js
 if(zarinpal.wasSuccessfull(paymentResponse)){
   // here payment was successfull
+}
+```
+
+#### An example:
+```js
+if (zarinpal.wasSuccessfull(paymentResponse)) {
+  const redirectURL = zarinpal.getRedirectURL(paymentResponse)
+} else {
+  const farsiError =  zarinpal.translateError(paymentResponse)
 }
 ```
 
