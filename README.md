@@ -50,8 +50,8 @@ and save it in db for later use and checks
 const authority = zarinpal.getAuthority(paymentResponse)
 ```
 
-#### Now you redirect the user to this url 
-- After user payed then you will redirect the user to the callback_url
+#### Now Zarinpal gateway redirects the user to this callbakc_url 
+- After user payed then zarinpal will redirect the user to the callback_url
 - In there you can find out the if the payment was successfull
 ```js
 // here is in your callback_url api
