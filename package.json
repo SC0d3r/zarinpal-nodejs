@@ -1,6 +1,6 @@
 {
   "name": "zarinpal-nodejs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "nodejs pkg for zarinpal gateway",
   "main": "index.js",
   "scripts": {
