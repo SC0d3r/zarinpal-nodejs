@@ -1,4 +1,3 @@
-const crypto = require("crypto");
 const { Headers, default: fetch } = require("node-fetch")
 const ERRORS = require("./enums/ERRORS.json")
 
@@ -12,6 +11,12 @@ const {
 } = require("./utils")
 
 class Zarinpal {
+
+  /**
+   * 
+   * @param {string} merchantID A string with **`36`** chracters, get this code from *Zarinpal website*
+   * @param {boolean} sandbox currently **`sandbox`** mode is **`disabled`** by Zarinpal
+   */
   constructor(merchantID, sandbox = false) {
     if (!isTypeString(merchantID)) {
       throw new Error(":: ARGUMENT ERROR merchantID should be of type string")
@@ -29,12 +34,18 @@ class Zarinpal {
     this.merchantID = merchantID
   }
 
-  static createRadnomMerchandID() {
-    // this will create a random 36 characters string
-    // every byte adds 2 hex values
-    return crypto.randomBytes(18).toString("hex");
-  }
-
+  /**
+   * #### Create a new payment request(`transaction`)
+   * @param {{
+   *    amount: Long,
+   *    description: string,
+   *    callback_url: string,
+   *    metadata?: {mobile: string, email: string}
+   *    mobile?: string,
+   *    email?: string
+   *    currency?: "IRT"|"IRR"
+   *  }} argument 
+   */
   async paymentRequest({
     amount,
     description,
@@ -102,14 +113,35 @@ class Zarinpal {
     }
   }
 
+  /**
+   * 
+   * @param paymentRequest 
+   * ```js
+   * const paymentRequest = await zarin.paymentRequest({...})
+   * ```
+  */
   wasSuccessfull(paymentRequest) {
     return paymentRequest?.data?.code === 100
   }
 
+  /**
+   * #### Authority is the code you get when the paymentRequest is successfull 
+   * @param paymentRequest
+   * ```js
+   * const paymentRequest = await zarin.paymentRequest({...})
+   * ```
+  */
   getAuthority(paymentRequest) {
     return paymentRequest?.data?.authority
   }
 
+  /**
+   * #### Redirect user to this URL for payment
+   * @param paymentRequest 
+   * ```js
+   * const paymentRequest = await zarin.paymentRequest({...})
+   * ```
+  */
   getRedirectURL(paymentRequest) {
     if (!this.wasSuccessfull(paymentRequest)) return ""
 
@@ -120,18 +152,32 @@ class Zarinpal {
       `https://www.zarinpal.com/pg/StartPay/${authority}`
   }
 
+  /**
+   * 
+   * @param {{Status: "OK"|"NOK"}} query 
+   */
   didUserPayedSuccessfully(query) {
     return query && query.Status === "OK"
   }
 
+  /**
+   * 
+   * @param {{Authority: string}} query 
+   */
   getAuthorityAfterSuccessfullPayment(query) {
     return query && query.Authority
   }
 
   /**
+   * #### Verify the payment in your api route(`callback_url`)
    * 
-   * Note: if you dont verify a payment zarinpal will
-   * return the user's money after a certain period
+   * @param {{
+   *   amount: Long
+   *   authority: string 
+   * }} argument
+   * 
+   * `Note:` If you dont verify a payment zarinpal will return the user's money after a certain period
+   * 
    */
   async verifyPayment({
     amount,
@@ -162,6 +208,13 @@ class Zarinpal {
     return this.#send(url, data);
   }
 
+  /**
+   * #### Find out if verification was successfull 
+   * @param  verifyResponse 
+   * ```js
+   * const verifyResponse = await zarin.verifyPayment({...})
+   * ```
+   */
   wasVerifySuccessfull(verifyResponse) {
     return (
       verifyResponse?.data?.code === 100 ||
@@ -170,18 +223,42 @@ class Zarinpal {
     )
   }
 
+  /**
+   * #### Get masked card number `ex: 5434-****-****-3215`
+   * @param  verifyResponse 
+   * ```js
+   * const verifyResponse = await zarin.verifyPayment({...})
+   * ```
+   */
   getMaskedCardPan(verifyResponse) {
     return verifyResponse?.data?.card_pan
   }
 
+  /**
+   * #### Get reference id of payment `ex: 23453135`
+   * @param  verifyResponse 
+   * ```js
+   * const verifyResponse = await zarin.verifyPayment({...})
+   * ```
+   */
   getRefID(verifyResponse) {
     return verifyResponse?.data?.ref_id
   }
 
+  /**
+   * #### Get the fee that you/customer has payed for the payment amount `ex: 3000`
+   * @param  verifyResponse 
+   * ```js
+   * const verifyResponse = await zarin.verifyPayment({...})
+   * ```
+   */
   getFee(verifyResponse) {
     return verifyResponse?.data?.fee
   }
 
+  /**
+   * #### Returns a list of previous unverified requests 
+   */
   async getAllUnverifiedRequests() {
     const url = "https://api.zarinpal.com/pg/v4/payment/unVerified.json"
 
@@ -194,8 +271,11 @@ class Zarinpal {
 
 
   /**
-   * 
-   * translates error to farsi if its a predefined error
+   * #### translates error to farsi if its a predefined error
+   * @param response 
+   * ```js
+   * const response = await zarin.paymentRequest({...})
+   * ```
    * for list of predefined error please check https://www.zarinpal.com/docs/md/paymentGateway/errorList.html
    */
   translateError(response) {
@@ -207,9 +287,10 @@ class Zarinpal {
   }
 
   /**
-   * 
-   * NOTE: for using refund you should first request an access token 
+   * @param {{authority: string}} argument
+   * ##### `NOTE:` for using refund you should first request an access token 
    * from zarinpal website
+   * ##### *This method is not tested yet*
    */
   async refund({
     authority,
