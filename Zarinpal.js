@@ -155,8 +155,18 @@ class Zarinpal {
   /**
    * 
    * @param {{Status: "OK"|"NOK"}} query 
+   * @deprecated use **`didUserPaySuccessfully`** method instead
+   * > `Note:` this method will get deleted in the next version use `didUserPaySuccessfully` method instead
    */
   didUserPayedSuccessfully(query) {
+    return query && query.Status === "OK"
+  }
+
+  /**
+   * 
+   * @param {{Status: "OK"|"NOK"}} query 
+   */
+  didUserPaySuccessfully(query) {
     return query && query.Status === "OK"
   }
 
