@@ -73,7 +73,7 @@ const authority = zarinpal.getAuthority(paymentResponse)
 ```js
 // here is in your callback_url api
 const query =  req.query // for example in the express like apis where you have res,req objects
-if(zarinpal.didUserPayedSuccessfully(query)){
+if(zarinpal.didUserPaySuccessfully(query)){
   // successfull payment
 }
 
