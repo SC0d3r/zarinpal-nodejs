@@ -11,7 +11,9 @@ function checkCallbackURL(callbackURL) {
     return isNotValid("callback url is not valid it cannot be an empty string", callbackURL)
   }
 
-  const urlRegex = /^https?:\/\/(?:w{1,3}\.)?[^\s.]+(?:\.[a-z]+)*(?::\d+)?(?![^<]*(?:<\/\w+>|\/?>))$/
+  // this will matches every url which starts with http or https
+  // and also matches http://localhost:3000 
+  const urlRegex = /^https?:\/\/\w+(?:\.\w+)*(?::[0-9]+)?\/?(?:\/[.\w]*)*(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?$/
 
   if (!urlRegex.test(callbackURL)) {
     return isNotValid("callback url is not valid it should be a valid url", callbackURL)
